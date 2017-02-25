@@ -7,10 +7,15 @@
  */
 
 get_header();
-while ( have_posts() ) : the_post();
+while (have_posts()) : the_post();
 
-global $post, $product, $woocommerce;
-?>
+    global $post, $product, $woocommerce;
+
+    $variations['Наволочки (4шт):'] = explode(',', $product->get_attribute('duvet-cover'))[0];
+    $variations['Простынь, мм:'] = explode(',', $product->get_attribute('pillowcases'))[0];
+    $variations['Пододеяльник, мм:'] = explode(',', $product->get_attribute('sheets'))[0];
+
+    ?>
     <main class="main product-page">
 
         <div class="page-content">
@@ -25,17 +30,22 @@ global $post, $product, $woocommerce;
                     </div>
                     <div class="right-column">
                         <div class="description-block">
-                            <p class="art">Артикул 17222</p>
+                            <p class="art">Артикул <?= $product->get_sku(); ?></p>
                             <h3 class="product-title"><?= the_title() ?></h3>
                             <div class="info-block">
                                 <p class="info-title">Цвет</p>
-                                <p class="info-text">Светло-серый и черный</p>
+                                <p class="info-text"><?= $product->get_attribute('color'); ?></p>
                             </div>
                             <div class="info-block">
+
                                 <p class="info-title">Размер</p>
-                                <p class="info-text">Наволочки (4шт) <?= $product->get_attribute('pillowcases') ?></p>
-                                <p class="info-text">Простынь, мм: <?= $product->get_attribute('sheets') ?></p>
-                                <p class="info-text">Пододеяльник, мм: <?= $product->get_attribute('duvet-cover') ?></p>
+                                <?php foreach ($variations as $key => $variation):
+                                    if (!empty($variation)) { ?>
+                                        <p class="info-text"><?= $key; ?> <?= $variation; ?></p>
+                                    <?php } endforeach; ?>
+                                <!--<p class="info-text">Наволочки (4шт): </p>-->
+                                <!--<p class="info-text">Простынь, мм: </p>-->
+                                <!--<p class="info-text">Пододеяльник, мм:</p>-->
                             </div>
                             <ul class="product-filter-list">
                                 <li class="product-filter-item">
@@ -77,7 +87,8 @@ global $post, $product, $woocommerce;
                                 </li>
                                 <li class="counter-item">
                                     <p class="info-title">Цена</p>
-                                    <p class="price-value">7 500 р.</p>
+                                    <!--<p class="price-value">7 500 р.</p>-->
+                                    <p class="price-value"><?= $product->get_price(); ?> р.</p>
                                 </li>
                             </ul>
                             <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
@@ -88,8 +99,7 @@ global $post, $product, $woocommerce;
                                 <dd>
                                     <div class="scrollbar style-3">
                                         <div class="force-overflow">
-                                            <p>Односпальное постельное белье из тонкого хлопка с набивным леопардовым рисунком.Пододеяльник застегивается снизу на потайные металлические кнопки. Одна наволочка. Толщина нити 30. Плотность переплетения 144.
-                                            </p>
+                                            <?= the_content(); ?>
                                         </div>
                                     </div>
                                 </dd>
@@ -97,7 +107,7 @@ global $post, $product, $woocommerce;
                                 <dd>
                                     <div class="scrollbar style-3">
                                         <div class="force-overflow">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel odio non elit tincidunt placerat. Donec quis dolor eleifend, venenatis urna nec, feugiat purus. Morbi dapibus leo lorem, vel tempor quam euismod ac. Pellentesque elementum ac ante ut gravida.</p>
+                                            <?= product_short_description(); ?>
                                         </div>
                                     </div>
                                 </dd>
@@ -127,7 +137,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                             <div class="catalog-item">
                                 <div class="img-wrap">
@@ -142,7 +153,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                             <div class="catalog-item">
                                 <div class="img-wrap">
@@ -157,7 +169,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                             <div class="catalog-item">
                                 <div class="img-wrap">
@@ -172,7 +185,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                         </div>
                         <a class="prev-button"></a>
@@ -201,7 +215,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                             <div class="catalog-item">
                                 <div class="img-wrap">
@@ -216,7 +231,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                             <div class="catalog-item">
                                 <div class="img-wrap">
@@ -231,7 +247,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                             <div class="catalog-item">
                                 <div class="img-wrap">
@@ -246,7 +263,8 @@ global $post, $product, $woocommerce;
                                         <span class="price">7 600 p.</span>
                                     </a>
                                 </div>
-                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в корзину</a>
+                                <a href="#" class="catalog-button"><i class="icon icon-button"></i>Добавить в
+                                    корзину</a>
                             </div>
                         </div>
                         <a class="prev-button-bot"></a>
@@ -257,6 +275,6 @@ global $post, $product, $woocommerce;
         </section>
 
     </main>
-<?php
+    <?php
 endwhile;
 get_footer();

@@ -108,17 +108,22 @@ function iris_home_scripts() {
 	//wp_enqueue_style( 'iris_home-style', get_stylesheet_uri() );
     wp_enqueue_style( 'iris_home-style', get_template_directory_uri() . '/styles/main.css' );
 
-	wp_enqueue_script( 'vendor', get_template_directory_uri() . '/js/vendor.js', array(), '20151215', true );
+	wp_enqueue_script( 'iris_home-vendor', get_template_directory_uri() . '/js/vendor.js', array(), '', true );
 
-	wp_enqueue_script( 'plugins', get_template_directory_uri() . '/js/plugins.js', array(), '20151215', true );
+	wp_enqueue_script( 'iris_home-plugins', get_template_directory_uri() . '/js/plugins.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array(), '20151215', true );
+	wp_enqueue_script( 'iris_home-main', get_template_directory_uri() . '/js/main.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'iris_home_scripts' );
+
+add_action( 'woocommerce_after_shop_loop_item_title', 'my_add_short_description', 9 );
+function product_short_description() {
+    echo '<span class="title-description">' . the_excerpt() . '</span><br />';
+}
 
 /**
  * Implement the Custom Header feature.
